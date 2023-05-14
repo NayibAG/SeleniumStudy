@@ -1,6 +1,8 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.time.Duration;
+
 public class SetUp {
     /*
      *  SELENIUM WEBDRIVER ARCHITECTURE
@@ -18,7 +20,7 @@ public class SetUp {
 
     public SetUp() {
         // Selenium to works properly needs to the have defined the path from the BrowserDriver in the property driver.
-        System.setProperty(driverInUse,pathMac);
+        System.setProperty(driverInUse,pathWin);
 
         /*
          * ChromeDriver has the implementation of the methods inherit from WebDriver(Interface).
@@ -27,6 +29,9 @@ public class SetUp {
          * WebDriver. This to improve compatibility when testing in browsers.
          * */
         this.driver = new ChromeDriver();
+
+        // Increase the amount of time the driver waits for responses or renders to load.
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     public WebDriver getDriver() {
