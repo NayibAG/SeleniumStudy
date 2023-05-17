@@ -18,7 +18,7 @@ public class Intro {
         /*
          * Selenium to works properly needs to the have defined the path from the BrowserDriver in the property driver.
          * */
-        System.setProperty(driverInUse,pathWin);
+        System.setProperty(driverInUse,pathMac);
 
         /*
          * ChromeDriver has the implementation of the methods inherit from WebDriver(Interface).
