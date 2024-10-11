@@ -40,7 +40,8 @@ public abstract class SetUp {
     }
 
     private static void loadGlobalVariables() {
-        String filePath = System.getProperty("user.dir")+"\\src\\main\\resources\\data.properties";
+//        String filePath = System.getProperty("user.dir")+"\\src\\main\\resources\\data.properties";
+        String filePath = System.getProperty("user.dir")+"/src/main/resources/data.properties";
         properties = new Properties();
         try{
             FileInputStream fis = new FileInputStream(filePath);

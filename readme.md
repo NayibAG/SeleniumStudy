@@ -14,4 +14,12 @@ STEPS FOR TEST SUITE RUN
 3.  RUN TEST
 -- mvn test    //RUN all the test which have test keyword at the end in source test.
 -- mvn test -P<Profile id> -D<Parameter name>=<Value>    
-example: mvn test -PDemo -DbrowserName=Firefox     
+example: mvn test -PRegression -DbrowserName=Firefox     
+
+
+
+RUN TEST SUITE USING DOCKER IMAGE
+sudo docker build . -f Dockerfile -t seleniumstudy
+
+RUN TEST SUITE USING AUTOMATE SCRIPT
+- sudo bash Script.sh
