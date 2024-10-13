@@ -23,3 +23,7 @@ sudo docker build . -f Dockerfile -t seleniumstudy
 
 RUN TEST SUITE USING AUTOMATE SCRIPT
 - sudo bash Script.sh
+
+https://hub.docker.com/r/selenium/standalone-chrome
+https://hub.docker.com/r/selenium/standalone-firefox
+http://localhost:7900/?autoconnect=1&resize=scale&password=secret

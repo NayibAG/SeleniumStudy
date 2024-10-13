@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  hub:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    shm_size: '2g'
+
+  seleniumstudy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: "hub"
+    command: [ "-DhubIP=hub" ]

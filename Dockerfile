@@ -12,18 +12,6 @@ RUN export PATH=$JAVA_HOME/bin:$PATH
 # Install Maven
 RUN apt install -y maven
 
-# Install Google Chrome Browser
-RUN apt install -y wget
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN apt install ./google-chrome-stable_current_amd64.deb
-RUN google-chrome --version
-
-
-# Install Firefox Browser
-RUN apt install firefox
-
-
 COPY . .
-
 
 ENTRYPOINT mvn test -PRegression -DbrowserName=Chrome
