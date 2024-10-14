@@ -1,6 +1,16 @@
+RUN TEST SUITE IN CHROME AND FIREFOX BROWSERS IN DOCKER COMPOSE USING AUTOSCRIPT
+- sudo bash Script.sh
 
+RUN TEST SUITE IN CHROME BROWSER USING DOCKER COMPOSE
+- sudo docker-compose -f docker-compose-chrome.yaml up --build
+- sudo docker-compose -f docker-compose-chrome.yaml down
 
+RUN TEST SUITE IN FIREFOX BROWSER USING DOCKER COMPOSE
+- sudo docker-compose -f docker-compose-firefox.yaml up --build
+- sudo docker-compose -f docker-compose-firefox.yaml down
 
+IN CASE YOU WANT TO LOOK TEST EXECUTION (WORKS ON BOTH BROWSERS)
+http://localhost:7900/?autoconnect=1&resize=scale&password=secret
 
 
 STEPS FOR TEST SUITE RUN
@@ -24,6 +34,3 @@ sudo docker build . -f Dockerfile -t seleniumstudy
 RUN TEST SUITE USING AUTOMATE SCRIPT
 - sudo bash Script.sh
 
-https://hub.docker.com/r/selenium/standalone-chrome
-https://hub.docker.com/r/selenium/standalone-firefox
-http://localhost:7900/?autoconnect=1&resize=scale&password=secret

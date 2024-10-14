@@ -14,4 +14,4 @@ RUN apt install -y maven
 
 COPY . .
 
-ENTRYPOINT mvn test -PRegression -DbrowserName=Chrome
+ENTRYPOINT mvn test -PRegression

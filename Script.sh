@@ -2,37 +2,23 @@
 
 clear
 
-echo "--- Run Selenium Grid Hub"
-docker run -d -p 4444:4444 -p 7900:7900 --shm-size="2g" selenium/standalone-chrome:latest
+echo "RUN TEST SUITE IN CHROME BROWSER USING DOCKER COMPOSE"
+docker-compose -f docker-compose-chrome.yaml up --build -d
 
-echo "--- Create the seleniumstudy image"
-docker build . -f Dockerfile -t seleniumstudy
+echo "STOP AND REMOVE THE CONTAINERS FROM CHROME TEST SUITE"
+docker-compose -f docker-compose-chrome.yaml down
 
-echo "--- Run seleniumstudy container"
-docker run --rm --name seleniumstudy seleniumstudy
+echo "REMOVE THE IMAGE FROM SELENIUMSTANDALONE-CHROME"
+docker rmi selenium/standalone-chrome
 
-# Stop and delete SeleniumStudy container
-echo "--- List all inactive containers "
-docker ps -a
+echo "RUN TEST SUITE IN FIREFOX BROWSER USING DOCKER COMPOSE"
+docker-compose -f docker-compose-firefox.yaml up --build -d
 
-echo "--- Stop the container"
-docker stop seleniumstudy selenium/standalone-chrome:latest
+echo "STOP AND REMOVE THE CONTAINERS FROM FIREFOX TEST SUITE"
+docker-compose -f docker-compose-firefox.yaml down
 
-echo "--- Remove the container"
-docker rm seleniumstudy selenium/standalone-chrome:latest
+echo "REMOVE THE IMAGE FROM SELENIUMSTANDALONE-FIREFOX"
+docker rmi selenium/standalone-firefox
 
-echo "--- List all inactive containers "
-docker ps -a
-
-# Delete SeleniumStudy image
-echo "--- List all images"
-docker images
-
-echo "--- Remove image"
-docker rmi seleniumstudy
-
-echo "--- List all images"
-docker images
-
-
-
+echo "REMOVE THE IMAGE FROM SELENIUMSTUDY"
+docker rmi seleniumstudy_seleniumstudy

@@ -58,14 +58,11 @@ public abstract class SetUp {
     }
 
     public static void startDriverRemote() {
-        String browserName = System.getProperty("browserName")!=null ? System.getProperty("browserName") : properties.getProperty("browserName");
-        String url = System.getProperty("url")!=null ? System.getProperty("url") : properties.getProperty("url");
-        String hubIP = System.getProperty("hubIP")!=null ? System.getProperty("hubIP") : properties.getProperty("hubIP");
-        //String hubIP = System.getenv("HUB_HOST");
-        String hubPort = System.getProperty("hubPort")!=null ? System.getProperty("hubPort") : properties.getProperty("hubPort");
-        String hubHost = System.getProperty("hubHost")!=null ? System.getProperty("hubHost") : properties.getProperty("hubHost");
-        String hub = "http://"+hubIP+":"+hubPort+"/";
-        //String hub = hubHost;
+        String browserName = System.getenv("BROWSER_NAME")!=null ? System.getenv("BROWSER_NAME") : properties.getProperty("BROWSER_NAME");
+        String url = System.getenv("PAGE_URL")!=null ? System.getenv("PAGE_URL") : properties.getProperty("PAGE_URL");
+        String hubHost = System.getenv("HUB_HOST") !=null ? System.getenv("HUB_HOST") : properties.getProperty("HUB_HOST");
+        String hubPort = System.getenv("HUB_PORT")!=null ? System.getenv("HUB_PORT") : properties.getProperty("HUB_PORT");
+        String hub = "http://"+hubHost+":"+hubPort+"/";
 
         DesiredCapabilities caps = new DesiredCapabilities();
         try{
