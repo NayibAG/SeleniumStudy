@@ -5,9 +5,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,11 +41,12 @@ public abstract class SetUp {
 
     public static void Setup(){
         loadGlobalVariables();
-        startDriver();
+        startDriverRemote();
     }
 
     private static void loadGlobalVariables() {
-        String filePath = System.getProperty("user.dir")+"\\src\\main\\resources\\data.properties";
+//        String filePath = System.getProperty("user.dir")+"\\src\\main\\resources\\data.properties";
+        String filePath = System.getProperty("user.dir")+"/src/main/resources/data.properties";
         properties = new Properties();
         try{
             FileInputStream fis = new FileInputStream(filePath);
@@ -49,6 +55,36 @@ public abstract class SetUp {
         }catch (IOException ex){
 
         }
+    }
+
+    public static void startDriverRemote() {
+        String browserName = System.getenv("BROWSER_NAME")!=null ? System.getenv("BROWSER_NAME") : properties.getProperty("BROWSER_NAME");
+        String url = System.getenv("PAGE_URL")!=null ? System.getenv("PAGE_URL") : properties.getProperty("PAGE_URL");
+        String hubHost = System.getenv("HUB_HOST") !=null ? System.getenv("HUB_HOST") : properties.getProperty("HUB_HOST");
+        String hubPort = System.getenv("HUB_PORT")!=null ? System.getenv("HUB_PORT") : properties.getProperty("HUB_PORT");
+        String hub = "http://"+hubHost+":"+hubPort+"/";
+
+        DesiredCapabilities caps = new DesiredCapabilities();
+        try{
+            switch(browserName.toLowerCase()) {
+                case "chrome":{
+                    caps.setCapability(CapabilityType.BROWSER_NAME,"chrome");
+                    driver = new RemoteWebDriver(new URL(hub),caps);
+                    break;
+                }
+                case "firefox":{
+                    caps.setCapability(CapabilityType.BROWSER_NAME,"firefox");
+                    driver = new RemoteWebDriver(new URL(hub),caps);
+                    break;
+                }
+            }
+        }catch(MalformedURLException exception){
+
+        }
+        driver.manage().deleteAllCookies();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); // Increase the amount of time the driver waits for responses or renders to load.
+        driver.manage().window().maximize();
+        driver.get(url);
     }
 
     /*
