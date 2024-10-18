@@ -1,0 +1,42 @@
+name: Deployment Workflow
+on: workflow_dispatch
+jobs:
+  deploy-test-on-chrome:
+    runs-on: ubuntu-20.04
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      # Step 3: Build and run Docker Compose services
+      - name: Run Docker Compose
+        run: docker-compose -f docker-compose-chrome.yaml up --build
+
+      # Step 4: Shut down services after the job
+      - name: Tear down Docker Compose
+        if: always()
+        run: docker-compose -f docker-compose-chrome.yaml down
+
+  deploy-test-on-firefox:
+    runs-on: ubuntu-20.04
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      # Step 3: Build and run Docker Compose services
+      - name: Run Docker Compose
+        run: docker-compose -f docker-compose-firefox.yaml up --build
+
+      # Step 4: Shut down services after the job
+      - name: Tear down Docker Compose
+        if: always()
+        run: docker-compose -f docker-compose-firefox.yaml down
