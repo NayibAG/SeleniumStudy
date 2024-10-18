@@ -20,7 +20,7 @@ jobs:
 
       # Step 4: Build and run Docker Compose services
       - name: Run Docker Compose
-        run: docker-compose -f docker-compose-chrome.yaml up --build
+        run: docker-compose -f docker-compose-chrome.yaml up --build -d
 
       # Step 5: Shut down services after the job
       - name: Tear down Docker Compose
@@ -46,7 +46,7 @@ jobs:
 
       # Step 4: Build and run Docker Compose services
       - name: Run Docker Compose
-        run: docker-compose -f docker-compose-chrome.yaml up --build
+        run: docker-compose -f docker-compose-chrome.yaml up --build -d
 
       # Step 5: Shut down services after the job
       - name: Tear down Docker Compose
