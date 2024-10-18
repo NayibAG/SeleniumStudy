@@ -2,19 +2,21 @@ name: Deployment Workflow
 on: workflow_dispatch
 jobs:
   deploy-test-on-chrome:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       # Step 1: Checkout the code
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Step 2: Set up Docker
       - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       # Step 3: Set up Docker Compose
       - name: Set up Docker Compose
-        run: apt-get install docker-compose-plugin
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
       # Step 4: Build and run Docker Compose services
       - name: Run Docker Compose
@@ -26,19 +28,21 @@ jobs:
         run: docker-compose -f docker-compose-chrome.yaml down
 
   deploy-test-on-firefox:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       # Step 1: Checkout the code
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Step 2: Set up Docker
       - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       # Step 3: Set up Docker Compose
       - name: Set up Docker Compose
-        run: apt-get install docker-compose-plugin
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
       # Step 4: Build and run Docker Compose services
       - name: Run Docker Compose
